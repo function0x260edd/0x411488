@@ -31,5 +31,5 @@
             }
         }
     }
-    setInterval(checkForNumber, 1);
+    setInterval(checkForNumber, 2500);
 })();
